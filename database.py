@@ -1,12 +1,15 @@
-import pymongo
+"""Sets up the MongoDB database on the cloud."""
 import os
+import pymongo
+
 
 def mongoclient():
-    MONGODB_USER = os.getenv("MONGODB_USER")
-    MONGODB_PSWD = os.getenv("MONGODB_PSWD")
-    MONGODB_DB   = os.getenv("MONGODB_DB")
+    """Function for setting up the database and returns it."""
+    mongodb_user = os.getenv("MONGODB_USER")
+    mongodb_pswd = os.getenv("MONGODB_PSWD")
+    mongodb_db   = os.getenv("MONGODB_DB")
     client = pymongo.MongoClient(
-        "mongodb+srv://{}:{}@cs242db.crxv1.mongodb.net/{}?retryWrites=true&w=majority".format(MONGODB_USER, MONGODB_PSWD, MONGODB_DB)
+        "mongodb+srv://{}:{}@cs242db.crxv1.mongodb.net/{}?retryWrites=true&w=majority".
+        format(mongodb_user, mongodb_pswd, mongodb_db)
     )
     return client.cs242db
-

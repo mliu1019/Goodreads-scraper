@@ -1,6 +1,10 @@
+"""This creates a graph based on book and author relations."""
+import json
 import networkx as nx
 import matplotlib.pyplot as plt
-from main import book_arr, author_arr
+
+book_arr = json.load(open('book.json'))
+author_arr = json.load(open('author.json'))
 
 G = nx.Graph()
 
