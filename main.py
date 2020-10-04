@@ -7,7 +7,7 @@ from author import create_author, store_author
 from database import mongoclient
 
 
-def scrape(initial_url="", book_count=10, author_count=3):
+def scrape(initial_url="", book_count=200, author_count=50):
     """Scrapes book and author information."""
     mongodb = mongoclient()
 
@@ -72,8 +72,8 @@ if __name__=="__main__":
     optional = parser.add_argument_group('optional arguments')
 
     required.add_argument('--url', help='URL to begin.', required=True, metavar="")
-    optional.add_argument('--nbook', help='Number of books to scrape.', default=10, metavar="")
-    optional.add_argument('--nauthor', help='Number of authors to scrape.', default=3, metavar="")
+    optional.add_argument('--nbook', help='Number of books to scrape.', default=200, metavar="")
+    optional.add_argument('--nauthor', help='Number of authors to scrape.', default=50, metavar="")
     args = parser.parse_args()
 
     load_dotenv("config.env")
