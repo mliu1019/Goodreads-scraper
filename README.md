@@ -12,6 +12,8 @@ Assignment 2 of CS 242 Class Fall 2020. The assignment implements a scraper for 
   * `--url`       URL to begin, required.
   * `--nbook`     Number of books to scrape, optional. Default to 200.
   * `--nauthor`   Number of authors to scrape, optional. Default to 50.
+* `python3 extra.py`
+  * The command generates a graph based on scraping results.
 
 ## Test 
 * `python3 test.py -h`
