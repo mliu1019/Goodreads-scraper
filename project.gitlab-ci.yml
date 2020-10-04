@@ -1,0 +1,14 @@
+image: "python:3.7" 
+
+before_scripts:
+  - python -V
+  - pip install -r requirements.txt
+
+stages:
+  - test
+  - lint
+
+test:
+  stage: test
+  script:
+    - python test.py
