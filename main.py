@@ -6,6 +6,7 @@ from book import create_book, store_book
 from author import create_author, store_author
 from database import mongoclient
 
+
 def scrape(initial_url="", book_count=10, author_count=3):
     """Scrapes book and author information."""
     mongodb = mongoclient()

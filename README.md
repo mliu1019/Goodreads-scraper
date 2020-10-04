@@ -13,7 +13,9 @@ Assignment 2 of CS 242 Class Fall 2020. The assignment implements a scraper for 
   * `--nbook`     Number of books to scrape, optional. Default to 200.
   * `--nauthor`   Number of authors to scrape, optional. Default to 50.
 * `python3 extra.py`
-  * The command generates a graph based on scraping results.
+  * The command generates a graph based on scraping results (extra credit).
+* `gitlab-runner exec shell test --env MONGODB_USER=root --env MONGODB_PSWD=cs242assignment --env MONGODB_DB=cs242`
+  * The command utilizes continuous integration on local Gitlab to do testing (extra credit).
 
 ## Test 
 * `python3 test.py -h`
