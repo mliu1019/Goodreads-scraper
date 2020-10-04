@@ -22,6 +22,11 @@ class Testing(unittest.TestCase):
         self.assertEqual(book.author, "Robert C. Martin")
         self.assertEqual(book.title, "Clean Code: A Handbook of Agile Software Craftsmanship")
 
+    def test_scrapeauthor(self):
+        from author import create_author
+        author = create_author("https://www.goodreads.com/author/show/45372.Robert_C_Martin")
+        self.assertEqual(author.name, "Robert C. Martin")
+        self.assertEqual(author.author_id, "45372")
 
 if __name__ == '__main__':
     unittest.main()
