@@ -1,8 +1,12 @@
+"""The Author class and scraper functions."""
 import requests
 from bs4 import BeautifulSoup
 
+
 class Author:
-    def __init__(self, name='', author_url='', author_id='', rating=0.0, rating_count=0, review_count=0, image_url='', related_authors=[], author_books=[]):
+    """The Author class."""
+    def __init__(self, name='', author_url='', author_id='', rating=0.0, rating_count=0,
+                review_count=0, image_url='', related_authors=None, author_books=None):
         self.name = name # name of the author
         self.author_url = author_url # the page URL
         self.author_id = author_id # a unique identifier of the author
@@ -15,6 +19,7 @@ class Author:
 
 
 def create_author(url):
+    """Creates a Author instance."""
     req = requests.get(url)
     soup = BeautifulSoup(req.content, 'html.parser')
 
@@ -24,22 +29,30 @@ def create_author(url):
     rating = float(soup.find('span', itemprop='ratingValue').get_text().strip())
     rating_count = int(soup.find('span', itemprop='ratingCount')['content'])
     review_count = int(soup.find('span', itemprop='reviewCount')['content'])
-    image_url = soup.find('meta', itemprop='image')['content']
 
-    sim_url = 'https://www.goodreads.com/' + soup.find('div', class_='hreview-aggregate').find_all('a')[1]['href']
-    sim_req = requests.get(sim_url)
-    sim_soup = BeautifulSoup(sim_req.content, 'html.parser')
-    related_authors = [author['href'].replace('https://www.goodreads.com/author/show/', '') for author in sim_soup.find_all('a', class_='gr-h3')[1:]]
+    try:
+        image_url = soup.find('meta', itemprop='image')['content']
+    except:
+        image_url = ''
 
-    author_books = [book.get_text() for book in soup.find_all('span', {'itemprop':'name', 'role':'heading'})]
+    sim_url = 'https://www.goodreads.com/' + soup.find('div',
+                class_='hreview-aggregate').find_all('a')[1]['href']
+    sim_soup = BeautifulSoup(requests.get(sim_url).content, 'html.parser')
+    related_authors = [author['href'].replace('https://www.goodreads.com/author/show/', '')
+                        for author in sim_soup.find_all('a', class_='gr-h3')[1:]]
 
-    author = Author(name, author_url, author_id, rating, rating_count, review_count, image_url, related_authors, author_books)
+    author_books = [book.get_text() for book in
+                    soup.find_all('span', {'itemprop':'name', 'role':'heading'})]
+
+    author = Author(name, author_url, author_id, rating, rating_count,
+                    review_count, image_url, related_authors, author_books)
 
     return author
 
 
-def store_author(authors, author):
-    authors.append({
+def store_author(author):
+    """Stores a Author into the dictionary form."""
+    author_dict = {
         'name': author.name,
         'author_url': author.author_url,
         'author_id': author.author_id,
@@ -49,4 +62,6 @@ def store_author(authors, author):
         'image_url': author.image_url,
         'related_authors': author.related_authors,
         'author_books': author.author_books
-    })
+    }
+
+    return author_dict
