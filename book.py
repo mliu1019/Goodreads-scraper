@@ -22,26 +22,69 @@ class Book:
 
 def create_book(url):
     """Creates a Book instance."""
-    req = requests.get(url)
+    try:
+        req = requests.get(url)
+    except:
+        return None
+
     soup = BeautifulSoup(req.content, 'html.parser')
 
-    book_url = soup.find('link', href=True)['href']
-    title = soup.find('h1', class_='gr-h1').get_text().strip()
-    book_id = soup.find('input', {'name':'book_id'})['value']
-    isbn = soup.find('meta', property='books:isbn')['content']
-    author_url = soup.find('a', class_='authorName')['href']
-    author = soup.find('a', class_='authorName').get_text()
-    rating = float(soup.find('span', itemprop='ratingValue').get_text().strip())
-    rating_count = int(soup.find('meta', itemprop='ratingCount')['content'])
-    review_count = int(soup.find('meta', itemprop='reviewCount')['content'])
+    try:
+        book_url = soup.find('link', href=True)['href']
+    except TypeError:
+        book_url = ''
+
+    try:
+        title = soup.find('h1', class_='gr-h1').get_text().strip()
+    except TypeError:
+        title = ''
+
+    try:
+        book_id = soup.find('input', {'name':'book_id'})['value']
+    except TypeError:
+        book_id = ''
+
+    try:
+        isbn = soup.find('meta', property='books:isbn')['content']
+    except TypeError:
+        isbn = ''
+
+    try:
+        author_url = soup.find('a', class_='authorName')['href']
+    except TypeError:
+        author_url = ''
+
+    try:
+        author = soup.find('a', class_='authorName').get_text()
+    except TypeError:
+        author = ''
+
+    try:
+        rating = float(soup.find('span', itemprop='ratingValue').get_text().strip())
+    except TypeError:
+        rating = 0.0
+
+    try:
+        rating_count = int(soup.find('meta', itemprop='ratingCount')['content'])
+    except TypeError:
+        rating_count = 0
+
+    try:
+        review_count = int(soup.find('meta', itemprop='reviewCount')['content'])
+    except TypeError:
+        review_count = 0
 
     try:
         image_url = soup.find('img', id='coverImage')['src']
-    except:
+    except TypeError:
         image_url = ''
 
-    similar_books = [book.find('a')['href'].replace('https://www.goodreads.com/book/show/', '')
+    try:
+        similar_books = [book.find('a')['href'].replace('https://www.goodreads.com/book/show/', '')
                     for book in soup.find_all('li', class_='cover')]
+    except TypeError:
+        similar_books = None
+
     book = Book(book_url, title, book_id, isbn, author_url, author, rating,
                 rating_count, review_count, image_url, similar_books)
 

@@ -20,29 +20,66 @@ class Author:
 
 def create_author(url):
     """Creates a Author instance."""
-    req = requests.get(url)
+    try:
+        req = requests.get(url)
+    except:
+        return None
+
     soup = BeautifulSoup(req.content, 'html.parser')
 
-    name = soup.find('h1', class_='authorName').get_text().strip()
-    author_url = soup.find('link', href=True)['href']
-    author_id = author_url.replace('https://www.goodreads.com/author/show/', '').split('.')[0]
-    rating = float(soup.find('span', itemprop='ratingValue').get_text().strip())
-    rating_count = int(soup.find('span', itemprop='ratingCount')['content'])
-    review_count = int(soup.find('span', itemprop='reviewCount')['content'])
+    try:
+        name = soup.find('h1', class_='authorName').get_text().strip()
+    except TypeError:
+        name = ''
+
+    try:
+        author_url = soup.find('link', href=True)['href']
+    except TypeError:
+        author_url = ''
+
+    try:
+        author_id = author_url.replace('https://www.goodreads.com/author/show/', '').split('.')[0]
+    except TypeError:
+        author_id = ''
+
+    try:
+        rating = float(soup.find('span', itemprop='ratingValue').get_text().strip())
+    except TypeError:
+        rating = 0.0
+
+    try:
+        rating_count = int(soup.find('span', itemprop='ratingCount')['content'])
+    except TypeError:
+        rating_count = 0
+
+    try:
+        review_count = int(soup.find('span', itemprop='reviewCount')['content'])
+    except TypeError:
+        review_count = 0
 
     try:
         image_url = soup.find('meta', itemprop='image')['content']
-    except:
+    except TypeError:
         image_url = ''
 
-    sim_url = 'https://www.goodreads.com/' + soup.find('div',
+    try:
+        sim_url = 'https://www.goodreads.com/' + soup.find('div',
                 class_='hreview-aggregate').find_all('a')[1]['href']
-    sim_soup = BeautifulSoup(requests.get(sim_url).content, 'html.parser')
-    related_authors = [author['href'].replace('https://www.goodreads.com/author/show/', '')
-                        for author in sim_soup.find_all('a', class_='gr-h3')[1:]]
+    except TypeError:
+        sim_url = ''
 
-    author_books = [book.get_text() for book in
+    try:
+        sim_soup = BeautifulSoup(requests.get(sim_url).content, 'html.parser')
+        related_authors = [author['href'].replace('https://www.goodreads.com/author/show/', '')
+                        for author in sim_soup.find_all('a', class_='gr-h3')[1:]]
+    except TypeError:
+        related_authors = None
+
+    try:
+        author_books = [book.get_text() for book in
                     soup.find_all('span', {'itemprop':'name', 'role':'heading'})]
+    except TypeError:
+        author_books = None
 
     author = Author(name, author_url, author_id, rating, rating_count,
                     review_count, image_url, related_authors, author_books)
