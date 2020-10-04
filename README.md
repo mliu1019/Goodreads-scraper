@@ -16,8 +16,8 @@ Assignment 2 of CS 242 Class Fall 2020. The assignment implements a scraper for 
   * The command generates a graph based on scraping results (extra credit).
 
 ## Test 
-* `python3 test.py -h`
-  * The command runs unit tests on the scraper.
+* `gitlab-runner exec shell test --env MONGODB_USER=[user] --env MONGODB_PSWD=[password] --env MONGODB_DB=[database]`
+  * The command utilizes continuous integration on local Gitlab to do testing (extra credit).
 
 ### Resources:
 - [Repo](https://gitlab.engr.illinois.edu/minerl2/fa20-cs242-assignment2)
