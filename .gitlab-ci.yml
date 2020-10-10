@@ -30,7 +30,7 @@ stages:
 test:
   stage: test
   script:
-    - echo "Building the app"
+    - echo "Testing the app"
     - python -V
     - python test.py
 
@@ -41,5 +41,6 @@ build:
 deploy_staging:
   stage: deploy
   script:
-    - python -V
-    - echo "Deploy to staging server"
+    - echo "Deploy the app"
+    - git push heroku assignment-2.1:master
+    - heroku run python app.py
