@@ -29,7 +29,10 @@ stages:
 
 test:
   stage: test
-  script: echo "Running tests"
+  script:
+    - echo "Building the app"
+    - python -V
+    - python test.py
 
 build:
   stage: build
@@ -40,4 +43,3 @@ deploy_staging:
   script:
     - python -V
     - echo "Deploy to staging server"
-    - python app.py
