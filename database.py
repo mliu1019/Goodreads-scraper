@@ -5,6 +5,9 @@ import pymongo
 
 def mongoclient():
     """Function for setting up the database and returns it."""
+    from dotenv import load_dotenv
+    load_dotenv('config.env')
+
     mongodb_user = os.getenv("MONGODB_USER")
     mongodb_pswd = os.getenv("MONGODB_PSWD")
     mongodb_db   = os.getenv("MONGODB_DB")
