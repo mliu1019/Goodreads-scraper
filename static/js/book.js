@@ -3,9 +3,10 @@ var book_list = [];
 function http_req(method, url, data=null) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open(method, url);
-        if (method == 'POST' || method == 'PUT') {
+        xhr.open(method, '/api' + url);
+        if (method === 'POST' || method === 'PUT') {
             xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Cdontrol-Allow-Origin", "*");
         }
         xhr.onload = () => resolve(JSON.parse(xhr.responseText));
         xhr.onerror = () => reject(xhr.statusText);

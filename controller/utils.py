@@ -25,7 +25,6 @@ def get_books(attributes):
 
 def update_book(attributes, new_attribuets):
     update_one(mongo.books, attributes, new_attribuets)
-    mongo.books.find_one_and_update(attributes, {'$set': new_attribuets})
 
 def create_book(attributes):
     create_one(mongo.books, attributes)
@@ -48,4 +47,5 @@ def create_one(collection, attributes):
     ret = collection.insert_one(attributes)
 
 def update_one(collection, attributes, new_attribuets):
-    collection.find_one_and_update(attributes, {'$set': new_attribuets})
+    if len(new_attribuets) > 0:
+        collection.find_one_and_update(attributes, {'$set': new_attribuets})

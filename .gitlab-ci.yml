@@ -43,4 +43,3 @@ deploy_staging:
   script:
     - echo "Deploy the app"
     - git push heroku assignment-2.1:master
-    - heroku run python app.py

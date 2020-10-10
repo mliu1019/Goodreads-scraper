@@ -1,19 +1,19 @@
-from flask import Flask
+from flask import Flask, Blueprint
 # from controller.book import book, books
 from controller.book import BooksAPI, BookAPI
 
-app = Flask(__name__, static_url_path='/static', static_folder="static")
-
+app = Flask(__name__, static_url_path='/', static_folder="static")
 
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
+def index():
+    return "CS242 Assignment2."
 
-app.add_url_rule('/books', view_func=BooksAPI.as_view('books'))
-app.add_url_rule('/book', view_func=BookAPI.as_view('book'))
+apis = Blueprint('api', __name__)
 
-# app.register_blueprint(books, url_prefix='/books')
-# app.register_blueprint(book, url_prefix='/book')
+apis.add_url_rule('/books', view_func=BooksAPI.as_view('books'))
+apis.add_url_rule('/book', view_func=BookAPI.as_view('book'))
+
+app.register_blueprint(apis, url_prefix='/api')
 
 if __name__ == '__main__':
     from dotenv import load_dotenv

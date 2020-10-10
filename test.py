@@ -67,6 +67,9 @@ class AppTest(unittest.TestCase):
     def setUpClass(self):
         from app import app
         self._app = app
+        self._header = {
+            'Content-Type': 'application/json'
+        }
 
 
     def test_serverup(self):
@@ -74,77 +77,27 @@ class AppTest(unittest.TestCase):
         resp = api.get('/', content_type='html/text')
         self.assertEqual(resp.status_code, 200)
         
-    def test_bookapi_response(self):
+    def test_book_crud(self):
         api = self._app.test_client(self)
-        body = {
-            'isbn': 12314124
+        book = {
+            'title': 'New Book',
+            'author': 'Miranda',
+            'isbn': '123456'
         }
-        resp = api.put('/books?book_id=4099&rating=4.32', json=body)
+        resp = api.post('/api/book', json=book, headers=self._header)
         self.assertEqual(resp.status_code, 200)
 
-        resp = api.get('/books?isbn=214214214')
+        resp = api.delete('/api/book?isbn=123456')
         self.assertEqual(resp.status_code, 200)
 
-        # self.assertEqual(resp.status_code, 200)
-
-    def test_bookapi_correctness(self):
+    def test_put_post_415(self):
         api = self._app.test_client(self)
-        body = [{
-            "author": "Erich Gamma1",
-            "author_url": "https://www.goodreads.com/author/show/48622.Erich_Gamma",
-            "book_id": "85009",
-            "book_url": "https://www.goodreads.com/book/show/85009.Design_Patterns",
-            "image_url": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348027904l/85009.jpg",
-            "isbn": "123456789",
-            "rating": 4.18,
-            "rating_count": 9855,
-            "review_count": 351,
-            "similar_books": [
-                "3735293-clean-code",
-                "44936.Refactoring",
-            ],
-            "title": "Design Patterns: Elements of Reusable Object-Oriented Software"
-        }, 
-        {
-            "author": "Erich Gamma2",
-            "author_url": "https://www.goodreads.com/author/show/48622.Erich_Gamma",
-            "book_id": "85009",
-            "book_url": "https://www.goodreads.com/book/show/85009.Design_Patterns",
-            "image_url": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348027904l/85009.jpg",
-            "isbn": "1234567892",
-            "rating": 4.18,
-            "rating_count": 9855,
-            "review_count": 351,
-            "similar_books": [
-                "3735293-clean-code",
-                "44936.Refactoring",
-            ],
-            "title": "Design Patterns: Elements of Reusable Object-Oriented Software"
-        }, 
-        {
-            "author": "Erich Gamma3",
-            "author_url": "https://www.goodreads.com/author/show/48622.Erich_Gamma",
-            "book_id": "85009",
-            "book_url": "https://www.goodreads.com/book/show/85009.Design_Patterns",
-            "image_url": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348027904l/85009.jpg",
-            "isbn": "1234567892",
-            "rating": 4.18,
-            "rating_count": 9855,
-            "review_count": 351,
-            "similar_books": [
-                "3735293-clean-code",
-                "44936.Refactoring",
-            ],
-            "title": "Design Patterns: Elements of Reusable Object-Oriented Software"
-        }]
-        resp = api.post('/book', json=body[0])
+        resp = api.put('/api/books?book_id=4099')
+        self.assertEqual(resp.status_code, 415)
+
+        resp = api.put('/api/books?book_id=4099', json={}, headers=self._header)
         self.assertEqual(resp.status_code, 200)
-        resp = api.post('/books', json=body[1:])
-        self.assertEqual(resp.status_code, 200)
-        resp = api.delete('/book?isbn=9780201633610')
-        self.assertEqual(resp.status_code, 200)
-        # self.assertEqual(resp.status_code, 200)
-        pass
+
 
 if __name__ == '__main__':
     unittest.main()

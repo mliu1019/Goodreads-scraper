@@ -1,10 +1,13 @@
-from flask import request, jsonify
+from flask import request, jsonify, abort
 from flask.views import MethodView
 
 import controller.utils as util
 
 class APIWrapper(MethodView):
     def setup(self):
+        if request.method == 'PUT' or request.method == 'POST':
+            if 'Content-Type' not in request.headers or request.headers['Content-Type'] != 'application/json':
+                abort(415)
         self.params = util.check_book_attribute(request.args.to_dict())
         self.data = request.get_json()
 
