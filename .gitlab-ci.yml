@@ -1,16 +1,43 @@
-image: "python:3.7" 
+# image: "python:3.7" 
 
-before_scripts:
-  - python3 -V
-  - pip install -r requirements.txt
+# before_scripts:
+#   - python3 -V
+#   - pip install -r requirements.txt
+
+# stages:
+#   - test
+#   - deploy
+
+# test:
+#   stage: test
+#   script:
+#     - python3 -V
+#     - python3 test.py
+
+
+# deploy:
+#   stage: deploy
+#   script:
+#     - apt-get install curl -y
+
+image: python:3.7
 
 stages:
   - test
-  - lint
+  - build
+  - deploy
 
 test:
   stage: test
-  script:
-    - python3 -V
-    - python3 test.py
+  script: echo "Running tests"
 
+build:
+  stage: build
+  script: echo "Building the app"
+
+deploy_staging:
+  stage: deploy
+  script:
+    - python -V
+    - echo "Deploy to staging server"
+    - python app.py
