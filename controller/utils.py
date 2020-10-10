@@ -1,4 +1,12 @@
 from database import mongoclient
+import json
+from bson import ObjectId
+
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
 
 mongo = mongoclient()
 
@@ -7,10 +15,13 @@ def check_book_attribute(attributes):
     for k in numbers:
         if k in attributes:
             attributes[k] = float(attributes[k])
+    
+    if '_id' in attributes:
+        attributes['_id'] = ObjectId(attributes['_id'])
     return attributes
 
 def get_books(attributes):
-    return list(mongo.books.find(attributes, {"_id": False}))
+    return list(mongo.books.find(attributes))
 
 def update_book(attributes, new_attribuets):
     update_one(mongo.books, attributes, new_attribuets)

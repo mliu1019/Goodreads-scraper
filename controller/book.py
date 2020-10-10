@@ -15,7 +15,7 @@ class APIWrapper(MethodView):
         self.setup()
         response = super(APIWrapper, self).dispatch_request(*args, **kwargs)
         self.teardown()
-        return jsonify(response)
+        return util.JSONEncoder().encode(response)
 
 class BooksAPI(APIWrapper):
     methods = ['GET', 'PUT', 'POST']
