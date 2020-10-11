@@ -67,7 +67,7 @@ class AppTest(unittest.TestCase):
     def setUpClass(self):
         from app import app
         import os 
-        print(os.getenv("MONGODB_USER"))
+        print(os.getenv("HEROKU_API_KEY"))
         self._app = app
         self._header = {
             'Content-Type': 'application/json'
