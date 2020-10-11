@@ -35,8 +35,8 @@ test:
   stage: test
   script:
     - echo "Testing the app"
-    - python -V
-    - python test.py
+    - python3 -V
+    - python3 test.py
 
 build:
   stage: build
