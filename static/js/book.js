@@ -19,10 +19,6 @@ function create_td(id, key, editable=true, indb=true) {
     td.className = 'pt-3-half';
     td.contentEditable = editable;
 
-    // td.addEventListener('focus', () => {
-    //     console.log(td)
-    // });
-
     if (editable) {
         td.addEventListener('blur', () => { 
             if (indb) {

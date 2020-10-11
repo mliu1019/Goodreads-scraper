@@ -3,12 +3,13 @@ from flask.views import MethodView
 
 import controller.utils as util
 
+
 class APIWrapper(MethodView):
     def setup(self):
         if request.method == 'PUT' or request.method == 'POST':
             if 'Content-Type' not in request.headers or request.headers['Content-Type'] != 'application/json':
                 abort(415)
-        self.params = util.check_book_attribute(request.args.to_dict())
+        self.params = util.check_attribute(request.args.to_dict())
         self.data = request.get_json()
 
     def teardown(self):
@@ -19,6 +20,7 @@ class APIWrapper(MethodView):
         response = super(APIWrapper, self).dispatch_request(*args, **kwargs)
         self.teardown()
         return util.JSONEncoder().encode(response)
+
 
 class BooksAPI(APIWrapper):
     methods = ['GET', 'PUT', 'POST']

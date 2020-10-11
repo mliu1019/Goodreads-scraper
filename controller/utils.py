@@ -10,15 +10,6 @@ class JSONEncoder(json.JSONEncoder):
 
 mongo = mongoclient()
 
-def check_book_attribute(attributes):
-    numbers = ['rating_count', 'review_count', 'rating']
-    for k in numbers:
-        if k in attributes:
-            attributes[k] = float(attributes[k])
-    
-    if '_id' in attributes:
-        attributes['_id'] = ObjectId(attributes['_id'])
-    return attributes
 
 def get_books(attributes):
     return list(mongo.books.find(attributes))
@@ -36,6 +27,32 @@ def create_books(attribute_list):
     create_many(mongo.books, attribute_list)
 
 
+def get_authors(attributes):
+    return list(mongo.authors.find(attributes))
+
+def update_author(attributes, new_attribuets):
+    update_one(mongo.authors, attributes, new_attribuets)
+
+def create_author(attributes):
+    create_one(mongo.authors, attributes)
+
+def delete_author(attributes):
+    delete_one(mongo.authors, attributes)
+
+def create_author(attribute_list):
+    create_many(mongo.authors, attribute_list)
+
+
+
+def check_attribute(attributes):
+    numbers = ['rating_count', 'review_count', 'rating']
+    for k in numbers:
+        if k in attributes:
+            attributes[k] = float(attributes[k])
+    
+    if '_id' in attributes:
+        attributes['_id'] = ObjectId(attributes['_id'])
+    return attributes
 
 def delete_one(collection, attributes):
     collection.delete_one(attributes)
