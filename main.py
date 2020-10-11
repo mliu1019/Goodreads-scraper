@@ -1,4 +1,7 @@
-"""Main entry point for the scraper."""
+"""
+Main entry point for the scraper. Includes functions for scraping Goodreads.com starting from a book page.
+Defaults to more than 200 books and 50 authors.
+"""
 import json
 import argparse
 from dotenv import load_dotenv

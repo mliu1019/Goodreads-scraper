@@ -1,3 +1,7 @@
+"""
+Entry point for the API. Includes queries and visualizations.
+"""
+
 from flask import Flask, Blueprint, send_file
 from controller.book import BooksAPI, BookAPI
 from controller.author import AuthorsAPI, AuthorAPI

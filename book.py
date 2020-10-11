@@ -1,4 +1,7 @@
-"""The Book class and scraper functions."""
+"""
+The Book class and scraper functions. 
+Initializes a Book object for database and visualization purposes.
+"""
 import requests
 from bs4 import BeautifulSoup
 

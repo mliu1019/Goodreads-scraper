@@ -1,6 +1,11 @@
+/**
+ * Realizes endpoints for the author API. Includes CRUD functions.
+ */
+
 var author_list = [];
 
 function http_req(method, url, data=null) {
+    /* Makes a new Promise for requests. */
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open(method, '/api' + url);
@@ -15,6 +20,7 @@ function http_req(method, url, data=null) {
 }
 
 function create_td(id, key, editable=true, indb=true) {
+    /* Creates the format of table row entries. */
     var td = document.createElement('td');
     td.className = 'pt-3-half';
     td.contentEditable = editable;
@@ -40,6 +46,7 @@ function update_author(id, key, val) {
 }
 
 function setup_table() {
+    /* Sets up the table elements. */
     const table = document.getElementById("author_table");
     table.innerHTML = '';
     http_req('GET', '/authors')
@@ -93,6 +100,7 @@ function create_author() {
 }
 
 function oncreate() {
+    /* Creates a new table row entry. */
     document.getElementById('create-btn').disabled = true;
     const table = document.getElementById("author_table");
     var tr = document.createElement('tr');
