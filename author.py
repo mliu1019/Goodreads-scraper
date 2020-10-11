@@ -1,4 +1,7 @@
-"""The Author class and scraper functions."""
+"""
+The Author class and scraper functions.
+Initializes an Author object for database and visualization purposes.
+"""
 import requests
 from bs4 import BeautifulSoup
 

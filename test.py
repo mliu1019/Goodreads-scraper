@@ -14,12 +14,14 @@ class AppTest(unittest.TestCase):
 
 
     def test_serverup(self):
+        """Tests server."""
         api = self._app.test_client(self)
         resp = api.get('/', content_type='html/text')
         self.assertEqual(resp.status_code, 200)
         
 
     def test_book_create(self):
+        """Tests create book."""
         api = self._app.test_client(self)
         book = {
             'title': 'New Book',
@@ -31,18 +33,21 @@ class AppTest(unittest.TestCase):
 
 
     def test_book_get(self):
+        """Tests get book."""
         api = self._app.test_client(self)
         resp = api.get('/api/book?isbn=654321')
         self.assertEqual(resp.status_code, 404)
 
 
     def test_book_delete(self):
+        """Tests delete book."""
         api = self._app.test_client(self)
         resp = api.delete('/api/book?isbn=123456')
         self.assertEqual(resp.status_code, 200)
 
     
     def test_author_create(self):
+        """Tests create author."""
         api = self._app.test_client(self)
         author = {
             'name': 'Miranda Liu',
@@ -53,18 +58,21 @@ class AppTest(unittest.TestCase):
 
 
     def test_author_get(self):
+        """Tests get author."""
         api = self._app.test_client(self)
         resp = api.get('/api/author?name=John Doe')
         self.assertEqual(resp.status_code, 404)
 
 
     def test_author_delete(self):
+        """Tests delete author."""
         api = self._app.test_client(self)
         resp = api.delete('/api/author?rating=5.0')
         self.assertEqual(resp.status_code, 200)
 
     
     def test_put_post_200(self):
+        """Tests the return code 200."""
         api = self._app.test_client(self)
         resp = api.put('/api/books?book_id=4098', json={}, headers=self._header)
         self.assertEqual(resp.status_code, 200)
@@ -73,12 +81,14 @@ class AppTest(unittest.TestCase):
 
 
     def test_get_404(self):
+        """Tests the return code 404."""
         api = self._app.test_client(self)
         resp = api.get('/api/author?rating=5.1')
         self.assertEqual(resp.status_code, 404)
 
 
     def test_put_post_415(self):
+        """Tests the return code 415."""
         api = self._app.test_client(self)
         resp = api.put('/api/books?book_id=4099')
         self.assertEqual(resp.status_code, 415)

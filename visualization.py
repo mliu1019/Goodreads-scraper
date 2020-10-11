@@ -1,11 +1,13 @@
-"""This creates a graph based on book and author relations."""
+"""This creates visualizations based on ranking of books and authors."""
 import json
 import matplotlib.pyplot as plt
 
 book_arr = json.load(open('book.json'))
 author_arr = json.load(open('author.json'))
 
+
 def visualize_authors(author_arr):
+    """Visualizes the top 15 authors with the highest ratings."""
     author_arr = sorted(author_arr, key = lambda i: i['rating'], reverse=True)[:15]
 
     authors = []
@@ -28,6 +30,7 @@ def visualize_authors(author_arr):
 
 
 def visualize_books(book_arr):
+    """Visualizes the top 15 books with the most number of similar books."""
     book_arr = sorted(book_arr, key = lambda i: i['review_count'], reverse=True)[:15]
 
     books = []
@@ -50,6 +53,7 @@ def visualize_books(book_arr):
     plt.title('Top 15 Books with Most Reviews')
     plt.tight_layout()
     plt.savefig('static/vis2.png')
+
 
 visualize_authors(author_arr)
 visualize_books(book_arr)
