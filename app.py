@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint
 from controller.book import BooksAPI, BookAPI
 from controller.author import AuthorsAPI, AuthorAPI
+from controller.utils import find_author, find_book
 
 app = Flask(__name__, static_url_path='/', static_folder="static")
 
@@ -8,6 +9,18 @@ app = Flask(__name__, static_url_path='/', static_folder="static")
 def index():
     return "CS242 Assignment2."
 
+@app.route('/query/most-book-authors')
+def most_book_authors():
+    ret = find_author()
+    return ret[0]['_id']
+
+@app.route('/query/most-similar-books')
+def most_similar_books():
+    ret = find_book()
+    print(ret)
+    return ret[0]['_id']
+    
+    
 apis = Blueprint('api', __name__)
 
 apis.add_url_rule('/books', view_func=BooksAPI.as_view('books'))

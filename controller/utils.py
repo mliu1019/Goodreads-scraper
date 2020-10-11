@@ -43,7 +43,6 @@ def create_author(attribute_list):
     create_many(mongo.authors, attribute_list)
 
 
-
 def check_attribute(attributes):
     numbers = ['rating_count', 'review_count', 'rating']
     for k in numbers:
@@ -66,3 +65,12 @@ def create_one(collection, attributes):
 def update_one(collection, attributes, new_attribuets):
     if len(new_attribuets) > 0:
         collection.find_one_and_update(attributes, {'$set': new_attribuets})
+
+
+def find_author():
+    return list(mongo.books.aggregate([{"$project":{"_id":0, "author":1}},{"$group":{ "_id":"$author", "count":{"$sum":1}}},{"$sort":{"count":-1}},
+    {"$limit":1}]))
+
+
+def find_book():
+    return list(mongo.books.aggregate([{"$unwind":"$similar_books"}, {"$group":{"_id":"$title","len":{"$sum":1}}},{"$sort":{"len":-1}},{"$limit":1}]))
