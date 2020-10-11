@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, send_file
 from controller.book import BooksAPI, BookAPI
 from controller.author import AuthorsAPI, AuthorAPI
 from controller.utils import find_author, find_book
@@ -17,10 +17,17 @@ def most_book_authors():
 @app.route('/query/most-similar-books')
 def most_similar_books():
     ret = find_book()
-    print(ret)
     return ret[0]['_id']
+
+@app.route('/vis/rank-authors')
+def visualize_author_rank():
+    return send_file('static/vis1.png')
+
+@app.route('/vis/rank-books')
+def visualize_book_rank():
+    return send_file('static/vis2.png')
     
-    
+
 apis = Blueprint('api', __name__)
 
 apis.add_url_rule('/books', view_func=BooksAPI.as_view('books'))
