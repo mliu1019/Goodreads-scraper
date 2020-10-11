@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="/js/author.js"></script>
+</header>
+
+<head>
+<title>Author Page</title>
+<style>
+body {
+    /* background-color: gainsboro; */
+}
+
+.container-md {
+    background-color: white;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5em;
+}
+
+.limit-width {
+    max-width: 250px;
+    overflow: hidden;
+}
+</style>
+</head>
+
+<body onload="setup_table()">
+<!-- Editable table -->
+<div class="card">
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Author table</h3>
+    <div class="card-body">
+      <div id="table" class="table-editable">
+        <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+              class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+        <table class="table table-bordered table-responsive-md table-striped text-center">
+          <thead>
+            <tr>
+              <th class="text-center">Author</th>
+              <th class="text-center">Rating</th>
+              <th class="text-center"></th>
+            </tr>
+          </thead>
+          <tbody id="author_table">
+          </tbody>
+        </table>
+      </div>
+      <div>
+            <button id="create-btn" onclick="oncreate()">CREATE</button>
+      </div>
+    </div>
+  </div>
+  <!-- Editable table -->
+</body>
+</html>
