@@ -35,8 +35,6 @@ test:
   stage: test
   script:
     - echo "Testing the app"
-    - echo $CI_JOB_STAGE
-    - echo $MONGODB_DB
     - python -V
     - python test.py
 
