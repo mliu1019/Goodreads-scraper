@@ -13,11 +13,15 @@ Assignment 2 of CS 242 Class Fall 2020. The assignment implements a scraper for 
   * `--nbook`     Number of books to scrape, optional. Default to 200.
   * `--nauthor`   Number of authors to scrape, optional. Default to 50.
 * `python3 extra.py`
-  * The command generates a graph based on scraping results (extra credit).
+  * The command generates a graph based on scraping results.
+* `python3 app.py`
+  * The command runs the web app for HTML rendering.
+* `python3 visualization.py`
+  * The command runs the visualizations.
 
 ## Test 
-* `gitlab-runner exec shell test --env MONGODB_USER=[user] --env MONGODB_PSWD=[password] --env MONGODB_DB=[database]`
-  * The command utilizes continuous integration on local Gitlab to do testing (extra credit).
+* `python3 test.py`
+  * The command runs unit tests. Because the database is hosted on Cloud, to test locally, please set up the database locally.
 
 ### Resources:
 - [Repo](https://gitlab.engr.illinois.edu/minerl2/fa20-cs242-assignment2)
