@@ -31,6 +31,7 @@ test:
   stage: test
   script:
     - echo "Testing the app"
+    - echo $CI_JOB_STAGE
     - python -V
     - python test.py
 
@@ -42,5 +43,5 @@ deploy_staging:
   stage: deploy
   script:
     - echo "Deploy the app"
-    - ./deploy.sh
+    - sudo dpl --provider=heroku --app=cs242-assignment2 --api-key=$HEROKU_API_KEY
     # - git push heroku assignment-2.1:master
