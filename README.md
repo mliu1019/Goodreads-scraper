@@ -1,6 +1,6 @@
-# FA20 CS242 Assignment 2
+# Goodreads Scraper
 
-Assignment 2 of CS 242 Class Fall 2020. The assignment implements a scraper for Goodreads.com. The current version is implemented in Python 3.7.3.
+The project implements a scraper for Goodreads.com. The current version is implemented in Python 3.7.3.
 
 ## Tool
 * [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)  >=4.9.0
@@ -24,4 +24,4 @@ Assignment 2 of CS 242 Class Fall 2020. The assignment implements a scraper for 
   * The command runs unit tests. Because the database is hosted on Cloud, to test locally, please set up the database locally.
 
 ### Resources:
-- [Repo](https://gitlab.engr.illinois.edu/minerl2/fa20-cs242-assignment2)
+- [Repo](https://github.com/mliu1019/Goodreads-scraper)
